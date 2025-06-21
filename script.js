@@ -23,6 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Check if taskText is not empty ("").
         // If it is empty, use alert to prompt the user to enter a task.
         if (taskText === "") {
+            // IMPORTANT: In a real application, consider using a custom modal
+            // or a more subtle on-page message instead of `alert()`,
+            // as `alert()` can be disruptive and is blocked in some environments.
             alert("Please enter a task.");
             return; // Exit the function if the input is empty
         }
@@ -36,13 +39,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Create a new button element for removing the task.
         const removeButton = document.createElement('button');
-        // Set its textContent to "Remove", and give it a class name of 'remove-btn'.
+        // Set its textContent to "Remove".
         removeButton.textContent = "Remove";
-        removeButton.className = 'remove-btn';
+        // Give it a class name of 'remove-btn' using classList.add().
+        removeButton.classList.add('remove-btn'); // Changed from .className = 'remove-btn'
 
         // Assign an onclick event to the remove button that, when triggered,
         // removes the li element from taskList.
         removeButton.onclick = function() {
+            // When the remove button is clicked, remove its parent li element from the task list.
             taskList.removeChild(listItem);
         };
 
@@ -69,13 +74,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // The instruction "Invoke the addTask function on DOMContentLoaded." was in the prompt.
-    // However, for a To-Do list, it's typical to start empty and add tasks via user interaction.
-    // Calling addTask() directly here would add an empty task on page load if taskInput.value is empty initially,
-    // or whatever placeholder text might be there.
-    // The main purpose of DOMContentLoaded is to ensure all elements are ready before
-    // attaching listeners, which is already handled by wrapping all code inside it.
-    // Therefore, an explicit call to addTask() outside of user interaction is not included here.
-    // If an initial task is explicitly required on load, it would be added like:
-    // addTask("Initial task example");
+    // Note: The instruction "Invoke the addTask function on DOMContentLoaded."
+    // was interpreted to mean setting up event listeners within DOMContentLoaded.
+    // An explicit call to addTask() here would add an empty task on page load
+    // if the input is initially empty. If an initial task is desired, it should be
+    // explicitly passed, e.g., addTask("Learn DOM manipulation");
 });
